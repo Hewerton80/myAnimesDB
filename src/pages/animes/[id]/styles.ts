@@ -42,9 +42,9 @@ export const Container = styled.div`
             & > div:nth-child(1) {
                 display: flex;
                 margin-bottom: 16px;
-                border-bottom: 1px solid ${colors.black};
+                border-bottom: 1px solid ${colors.blue};
                 h3 {
-                    color: ${colors.black};
+                    color: ${colors.blue};
                 }
             } 
             & > div:nth-child(2) {
@@ -84,6 +84,7 @@ export const Container = styled.div`
                 flex-direction: column;
                 background: ${colors.antiquewhite};
                 padding: 16px;
+                margin-bottom: 16px;
                 & > div:first-child {
                     border-bottom: 1px solid ${colors.black};
                     margin-bottom: 16px;
@@ -93,6 +94,14 @@ export const Container = styled.div`
                     font-size: 14px;
                     text-justify: distribute;
                     text-align: justify;
+                }
+            }
+            & .video{
+                width: 100%;
+                position: relative;
+                & iframe {
+                    width: 100%;
+                    border: none;
                 }
             }
         }
