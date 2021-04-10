@@ -19,12 +19,13 @@ function Animes() {
       'sort': EAnimesFileds.PopularityRank,
       'fields[anime]': onlySomeFilds,
       'filter[seasonYear]': moment().get('year'),
-      'page[limit]': 8
+      'page[limit]': 20
     });
+    
     getMostRecentAnimes({
       'sort': EAnimesFileds.StartDate,
       'fields[anime]': onlySomeFilds,
-      'page[limit]': 8
+      'page[limit]': 20
     });
   }, []);
 
@@ -67,7 +68,7 @@ function Animes() {
         <Container>
           <div>
             <header><h3>Mais Populares em {moment().get('year')}</h3> <Link href='#'>Ver todos</Link> </header>
-            <div className='row'>
+            <div>
               {popularityRankAnimes.map((anime) => (
                 <AnimeCard
                   key={anime.id}
@@ -76,7 +77,7 @@ function Animes() {
               ))}
             </div>
             <header><h3>Mais recentes</h3> <Link href='#'>Ver todos</Link> </header>
-            <div className='row'>
+            <div>
               {mostRecentAnimes.map((anime) => (
                 <AnimeCard
                   key={anime.id}

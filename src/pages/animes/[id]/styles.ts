@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
+import { ScrollBarCss } from '../../../components/css/ScrollBar';
 
 export const Container = styled.div`
     overflow-x: hidden;
@@ -39,6 +40,7 @@ export const Container = styled.div`
             display: flex;
             flex-direction: column;
             width: 100%;
+            overflow: auto;
             & > div:nth-child(1) {
                 display: flex;
                 margin-bottom: 16px;
@@ -94,6 +96,10 @@ export const Container = styled.div`
                     font-size: 14px;
                     text-justify: distribute;
                     text-align: justify;
+                    span{
+                        color: ${colors.blue};
+                        cursor: pointer;
+                    }
                 }
             }
             & .video{
@@ -128,7 +134,8 @@ export const Container = styled.div`
                 }
                 & > div:nth-child(2) {
                     display: flex;
-                    flex-wrap: wrap;
+                    overflow-x: auto;
+                    ${ScrollBarCss}
                 }
             }
         }

@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 import colors from '../../assets/colors';
+import { ScrollBarCss } from '../../components/css/ScrollBar';
 
 export const Container = styled.div`
+
+    
     display: flex;
     overflow-x: hidden;
     /* width: 1024px; */
@@ -31,10 +34,10 @@ export const Container = styled.div`
         
         & > div{
             display: flex;
-            flex-wrap: wrap;
             width: 100%;
-            overflow-x: hidden;
             margin-bottom:16px;
+            overflow-x: auto;
+            ${ScrollBarCss}
         }
     }
 `;
