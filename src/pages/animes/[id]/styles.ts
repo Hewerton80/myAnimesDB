@@ -99,9 +99,36 @@ export const Container = styled.div`
             & .video{
                 width: 100%;
                 position: relative;
+                margin-bottom: 16px;
                 & iframe {
                     width: 100%;
                     border: none;
+                }
+            }
+
+            & .episodes {
+                & > div:nth-child(1) {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 16px;
+                    border-bottom: 1px solid ${colors.blue};
+                    padding-bottom: 2px;
+                    h4 {
+                        color: ${colors.blue};
+                    }
+                    a {
+                        color: ${colors.blue};
+                        font-size: 12px;
+                        font-weight: bold;
+                        border-bottom: solid 0.5px ${colors.primary};
+                        &:hover{
+                            border-color: ${colors.blue};
+                        }
+                    }
+                }
+                & > div:nth-child(2) {
+                    display: flex;
+                    flex-wrap: wrap;
                 }
             }
         }

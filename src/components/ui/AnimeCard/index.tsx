@@ -16,14 +16,14 @@ function AnimeCard({ anime }: AnimeCardProps) {
     >
       <div>
         <Link href={`/animes/${anime.id}`}>
-          <img draggable={false} src={anime?.attributes?.posterImage?.small} alt={anime.attributes.canonicalTitle}/>
+          <img draggable={false} src={anime?.attributes?.posterImage?.small} alt={anime.attributes.canonicalTitle} />
         </Link>
       </div>
       <p>{anime.attributes.canonicalTitle}</p>
-      <div className='footer'>
-        <span>#{anime.attributes.ratingRank}</span>
-        <span><AiFillStar size={16} color={colors.yellow2} /> {getScoreFormat(anime.attributes.averageRating)}</span>
-        <span><FaUserAlt size={10} color={colors.yellow2}/> {anime.attributes.userCount}</span>
+      <div className='anime-footer'>
+        <span>#{anime.attributes.ratingRank || '?'}</span>
+        <span><AiFillStar size={16} color={colors.yellow2} /> {getScoreFormat(anime.attributes.averageRating) || '?'}</span>
+        <span><FaUserAlt size={10} color={colors.yellow2} /> {anime.attributes.userCount}</span>
       </div>
     </Container>
   );
