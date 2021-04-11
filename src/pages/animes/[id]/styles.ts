@@ -11,7 +11,7 @@ export const Container = styled.div`
         align-items: center;
         flex-wrap: wrap;
         margin-bottom: 16px;
-        p {
+        p, a {
             font-weight: bold;
             font-size: 14px;
             color: ${colors.blue};

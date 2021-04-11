@@ -1,94 +1,80 @@
-import { useEffect/*, MouseEvent, useCallback, , useRef*/ } from 'react';
-import { Container } from './styles';
-import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
 import GlobalContainer from '../../components/tanpletes/GlobalContainer';
-import useAnime, { EAnimesFileds, onlySomeAnimesFilds } from '../../hooks/useAnime';
 import AnimeCard from '../../components/ui/AnimeCard';
-import Link from 'next/link';
-import moment from 'moment';
-// import Button from '../../../components/ui/Button';
+import { Pagination } from '../../components/ui/Pagination';
+import useAnime, { EAnimesFileds, IQueryParamsAnime, onlySomeAnimesFilds } from '../../hooks/useAnime';
+import { Container } from './styles';
 
 function Animes() {
-  const { animes: popularityRankAnimes, getAnimes: getPopularityRankAnimes } = useAnime();
-  const { animes: mostRecentAnimes, getAnimes: getMostRecentAnimes } = useAnime();
 
-  // const rowAnimes = useRef([]);
+  const router = useRouter();
+
+  const { animes, animesCount, isLoadingAnimes, getAnimes } = useAnime();
+
+  const [pageLimit, setPageLimit] = useState(20);
+  const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState<IQueryParamsAnime>(
+    Object.keys(router.query).length > 0 ?
+      router.query :
+      {
+        'sort': EAnimesFileds.Slug
+      }
+  );
 
   useEffect(() => {
-    getPopularityRankAnimes({
-      'sort': EAnimesFileds.PopularityRank,
+    console.log(router.query);
+    getAnimes({
+      ...filters,
       'fields[anime]': onlySomeAnimesFilds,
-      'filter[seasonYear]': moment().get('year'),
-      'page[limit]': 20
-    });
-    
-    getMostRecentAnimes({
-      'sort': EAnimesFileds.StartDate,
-      'fields[anime]': onlySomeAnimesFilds,
-      'page[limit]': 20
+      'page[limit]': pageLimit,
+      'page[offset]': pageLimit * (page - 1)
     });
   }, []);
 
 
+  const handleGetAnimes = useCallback((numPage) => {
+    getAnimes({
+      ...filters,
+      'fields[anime]': onlySomeAnimesFilds,
+      'page[limit]': pageLimit,
+      'page[offset]': pageLimit * (numPage - 1)
+    });
+  }, [page, pageLimit, filters]);
 
-  // const handleDragStart = useCallback((e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, i: number) => {
-  //   console.log(e)
-  //   const pos = {
-  //     // The current scroll 
-  //     left: rowAnimes.current[i].scrollLeft,
-  //     // Get the current mouse position
-  //     x: e.clientX,
-  //   };
-  //   addEventListener('mousemove', dragMove);
-  //   addEventListener('mouseup', dragEnd);
-
-  //   /* ao ser arrastado */
-  //   function dragMove(e: globalThis.MouseEvent) {
-  //     // How far the mouse has been moved
-  //     const dx = e.clientX - pos.x;
-
-  //     // Scroll the element
-  //     rowAnimes.current[i].scrollLeft = pos.left - dx;
-  //   }
-
-  //   function dragEnd() {
-  //     /* remove os eventos */
-  //     removeEventListener('mousemove', dragMove);
-  //     removeEventListener('mouseup', dragEnd);
-  //   }
-  // }, []);
+  const handleChange = useCallback((event, page) => {
+    console.log('handleChange: ', page);
+    setPage(page);
+    handleGetAnimes(page);
+  }, [handleGetAnimes]);
 
   return (
-    <>
-      <Head>
-        <title>My Animes</title>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
-      <GlobalContainer>
-        <Container>
-          <div>
-            <header><h3>Mais Populares em {moment().get('year')}</h3> <Link href='#'>Ver todos</Link> </header>
-            <div>
-              {popularityRankAnimes.map((anime) => (
-                <AnimeCard
-                  key={anime.id}
-                  anime={anime}
-                />
-              ))}
-            </div>
-            <header><h3>Mais recentes</h3> <Link href='#'>Ver todos</Link> </header>
-            <div>
-              {mostRecentAnimes.map((anime) => (
-                <AnimeCard
-                  key={anime.id}
-                  anime={anime}
-                />
-              ))}
-            </div>
-          </div>
-        </Container>
-      </GlobalContainer>
-    </>
+    <GlobalContainer>
+      <Container>
+        <div>
+          <h3>Animes</h3>
+        </div>
+        <div>
+          {animes.map(anime => (
+            <AnimeCard
+              key={anime.id}
+              anime={anime}
+            />
+          ))}
+        </div>
+        <div>
+          <Pagination
+            count={Math.floor(animesCount / pageLimit)}
+            page={page}
+            onChange={handleChange}
+            disabled={isLoadingAnimes}
+            color="primary"
+            size="large"
+          />
+        </div>
+
+      </Container>
+    </GlobalContainer>
   );
 };
 

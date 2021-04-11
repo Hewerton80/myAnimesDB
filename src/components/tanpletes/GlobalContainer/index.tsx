@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Container } from './styles';
 import { EAnimesFileds } from '../../../hooks/useAnime';
 import AnimesSection from '../../ui/AnimesSection';
+import { useRouter } from 'next/router';
 
 interface GlobalContainerProps {
   children: ReactNode;
@@ -10,6 +11,7 @@ interface GlobalContainerProps {
 
 function GlobalContainer({ children }: GlobalContainerProps) {
 
+  const router = useRouter();
   return (
     <Container>
       <header>
@@ -17,12 +19,12 @@ function GlobalContainer({ children }: GlobalContainerProps) {
         <div>
           <nav>
             <ul>
-              <li className='active'>
-                <Link href="/animes">Animes</Link>
+              <li className={router.pathname === '/home'? 'active': ''}>
+                <Link href='/home'>Home</Link>
               </li>
-              {/* <li>
-                <Link href="#">Mangás</Link>
-              </li> */}
+              <li className={router.pathname.includes('/animes')? 'active': ''}>
+                <Link href='/animes'>Animes</Link>
+              </li>
             </ul>
           </nav>
         </div>

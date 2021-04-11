@@ -4,6 +4,7 @@ import { IAnime } from "../models/anime";
 import { ICharacter } from "../models/character";
 
 export enum EAnimesFileds {
+    Slug = 'slug',
     PopularityRank = 'popularityRank',
     FavoritesCount = '-favoritesCount',
     RatingRank = 'ratingRank',
@@ -48,12 +49,14 @@ export interface IQueryParamsAnime {
     'filter[seasonYear]'?: string | number;
     'include'?: string;
     'fields[characters]'?: string;
+    'page[offset]'?: number;
 }
 
 export const onlySomeAnimesFilds = 'slug,createdAt,canonicalTitle,averageRating,ratingFrequencies,userCount,favoritesCount,startDate,endDate,popularityRank,ratingRank,ageRating,ageRatingGuide,subtype,status,tba,posterImage,coverImage,episodeCount,episodeLength,totalLength,youtubeVideoId';
 
 const useAnime = () => {
     const [animes, setAnimes] = useState<IAnime[]>([]);
+    const [animesCount, setAnimesCount] = useState<number>(0);
     const [isLoadingAnimes, setIsLoadingAnimes] = useState<boolean>(false);
 
     const getAnimes = useCallback(async (queryParams: IQueryParamsAnime) => {
@@ -71,12 +74,13 @@ const useAnime = () => {
                 animesResponse[0].characters = characters as ICharacter[];
             }
             setAnimes(animesResponse);
+            setAnimesCount( response.data.meta.count);
         }
         catch (err) {
 
         }
         setIsLoadingAnimes(false);
     }, []);
-    return { animes, isLoadingAnimes, getAnimes }
+    return { animes, isLoadingAnimes, animesCount, getAnimes }
 }
 export default useAnime;

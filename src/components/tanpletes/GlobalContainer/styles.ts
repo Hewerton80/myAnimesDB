@@ -61,16 +61,16 @@ export const Container = styled.div`
     main {
         ${widthStyleContainer}
         overflow: hidden;
-        /* display: grid;
-        grid-template-columns: auto auto; */
+        display: grid;
+        grid-template-columns: auto auto;
         gap: 16px;
-        display: flex;
-        & > div:nth-child(1){
+        /* display: flex; */
+        /* & > div:nth-child(1){
             flex: 0 0 ${(992/1240) * 100}%;
             max-width: ${(992/1240) * 100}%;
-        }
+        } */
         & > .sections{
-            min-width: 250px;
+            width: 250px;
         }
     }
 `;
