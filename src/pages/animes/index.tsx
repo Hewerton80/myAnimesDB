@@ -2,7 +2,7 @@ import { useEffect/*, MouseEvent, useCallback, , useRef*/ } from 'react';
 import { Container } from './styles';
 import Head from 'next/head';
 import GlobalContainer from '../../components/tanpletes/GlobalContainer';
-import useAnime, { EAnimesFileds, onlySomeFilds } from '../../hooks/useAnime';
+import useAnime, { EAnimesFileds, onlySomeAnimesFilds } from '../../hooks/useAnime';
 import AnimeCard from '../../components/ui/AnimeCard';
 import Link from 'next/link';
 import moment from 'moment';
@@ -17,14 +17,14 @@ function Animes() {
   useEffect(() => {
     getPopularityRankAnimes({
       'sort': EAnimesFileds.PopularityRank,
-      'fields[anime]': onlySomeFilds,
+      'fields[anime]': onlySomeAnimesFilds,
       'filter[seasonYear]': moment().get('year'),
       'page[limit]': 20
     });
     
     getMostRecentAnimes({
       'sort': EAnimesFileds.StartDate,
-      'fields[anime]': onlySomeFilds,
+      'fields[anime]': onlySomeAnimesFilds,
       'page[limit]': 20
     });
   }, []);

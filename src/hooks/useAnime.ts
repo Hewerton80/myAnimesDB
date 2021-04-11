@@ -1,42 +1,7 @@
 import { useCallback, useState } from "react";
 import apiKitsu from '../apis/kitsuApi';
-
-
-export interface IAnimeAttributes {
-    createdAt: Date;
-    updatedAt: Date;
-    canonicalTitle: string;
-    averageRating: string;
-    ratingFrequencies: any;
-    userCount: number;
-    favoritesCount: number;
-    startDate: string;
-    endDate: string;
-    popularityRank: number;
-    ratingRank: number;
-    ageRating: string;
-    ageRatingGuide: string;
-    subtype: string;
-    status: string;
-    posterImage: { tiny: string, small: string, medium: string, large: string, original: string };
-    episodeCount: number;
-    episodeLength: number;
-    totalLength: number;
-    youtubeVideoId: string;
-    showType: string;
-    synopsis: string;
-    description: string;
-    titles: { de_de: string, en_jp: string, es_es: string, ja_jp: string };
-    
-}
-
-export interface IAnime {
-    id: string;
-    type: string;
-    links: { self: string };
-    attributes: IAnimeAttributes;
-    relationships: any;
-}
+import { IAnime } from "../models/anime";
+import { ICharacter } from "../models/character";
 
 export enum EAnimesFileds {
     PopularityRank = 'popularityRank',
@@ -46,6 +11,7 @@ export enum EAnimesFileds {
     AverageRating = '-averageRating',
     StartDate = '-startDate',
 }
+
 export const fieldsToOrderBy = [
     {
         label: 'Mais populares',
@@ -80,9 +46,11 @@ export interface IQueryParamsAnime {
     'filter[id]'?: string;
     'sort'?: String;
     'filter[seasonYear]'?: string | number;
+    'include'?: string;
+    'fields[characters]'?: string;
 }
 
-export const onlySomeFilds = 'slug,createdAt,canonicalTitle,averageRating,ratingFrequencies,userCount,favoritesCount,startDate,endDate,popularityRank,ratingRank,ageRating,ageRatingGuide,subtype,status,tba,posterImage,coverImage,episodeCount,episodeLength,totalLength,youtubeVideoId';
+export const onlySomeAnimesFilds = 'slug,createdAt,canonicalTitle,averageRating,ratingFrequencies,userCount,favoritesCount,startDate,endDate,popularityRank,ratingRank,ageRating,ageRatingGuide,subtype,status,tba,posterImage,coverImage,episodeCount,episodeLength,totalLength,youtubeVideoId';
 
 const useAnime = () => {
     const [animes, setAnimes] = useState<IAnime[]>([]);
@@ -94,7 +62,15 @@ const useAnime = () => {
             const response = await apiKitsu.get('/anime', {
                 params: queryParams
             });
-            setAnimes(response.data.data);
+            const animesResponse: IAnime[] = response.data.data;
+            let characters = [];
+            if (queryParams.include === 'characters.character' && response.data.included) {
+                characters = response.data.included;
+                // console.log('characters: ', characters)
+                characters = characters.filter(character => !!character.attributes.canonicalName)
+                animesResponse[0].characters = characters as ICharacter[];
+            }
+            setAnimes(animesResponse);
         }
         catch (err) {
 

@@ -6,7 +6,19 @@ export const Container = styled.div`
     overflow-x: hidden;
     /* width: 1024px; */
     max-width: 100%;
+    & .path {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+        p {
+            font-weight: bold;
+            font-size: 14px;
+            color: ${colors.blue};
+        }
+    }
     & > div{
+  
         display: flex;
         & > div{
             display: flex;
@@ -112,7 +124,8 @@ export const Container = styled.div`
                 }
             }
 
-            & .episodes {
+            & .episodes, .characters {
+                margin-bottom: 16px;
                 & > div:nth-child(1) {
                     display: flex;
                     justify-content: space-between;

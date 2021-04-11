@@ -1,30 +1,10 @@
 import { useCallback, useState } from "react";
 import apiKitsu from '../apis/kitsuApi';
-
-
-export interface IEpisodeAttributes {
-    createdAt?: string;
-    canonicalTitle?: string;
-    description?: string;
-    airdate?: string;
-    seasonNumber?: number;
-    number?: number;
-    length?: number;
-    thumbnail: { original: string };
-}
-
-export interface IEpisode {
-    id: string;
-    type: string;
-    links: { self: string };
-    attributes: IEpisodeAttributes;
-    relationships: any;
-
-}
-
+import { IEpisode } from "../models/episode";
 interface IQueryParamsAnime {
 
 }
+
 const useEpisode = () => {
 
     const [episodes, setEpisodes] = useState<IEpisode[]>([]);

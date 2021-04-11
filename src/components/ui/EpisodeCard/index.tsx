@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import { IEpisode } from '../../../hooks/useEpisode';
+import { IEpisode } from '../../../models/episode';
 import { Container } from './styles';
 
 
@@ -18,7 +18,12 @@ function EpisodeCard({ episode }: EpisodeCardProps) {
           <p>{episode?.attributes?.length} min</p>
         </div>
         <Link href={'#'}>
-          <img draggable={false} src={episode?.attributes?.thumbnail?.original} alt={episode?.attributes?.canonicalTitle} />
+          <img 
+            draggable={false} 
+            src={episode?.attributes?.thumbnail?.original} 
+            alt={episode?.attributes?.canonicalTitle} 
+            onError={e => {console.log('erro ao ler imagem: ', e )}}
+          />
         </Link>
       </div>
       <p>{episode?.attributes?.canonicalTitle}</p>

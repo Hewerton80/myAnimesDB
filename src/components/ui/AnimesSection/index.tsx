@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Container } from './styles';
 import { AiFillStar } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
-import useAnime, { EAnimesFileds, onlySomeFilds } from '../../../hooks/useAnime';
+import useAnime, { EAnimesFileds, onlySomeAnimesFilds } from '../../../hooks/useAnime';
 import colors from '../../../assets/colors';
 import { getScoreFormat } from '../../../utils';
 
@@ -19,7 +19,7 @@ function AnimesSection({ title, animesFileds }: AnimesSectionProps) {
     getAnimes({
       "sort": animesFileds,
       "page[limit]": 5,
-      "fields[anime]": onlySomeFilds
+      "fields[anime]": onlySomeAnimesFilds
     });
   }, []);
 

@@ -1,10 +1,10 @@
 import { Container } from './styles';
 import Link from 'next/link'
-import { IAnime } from '../../../hooks/useAnime';
 import { AiFillStar } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { getScoreFormat } from '../../../utils';
 import colors from '../../../assets/colors';
+import { IAnime } from '../../../models/anime';
 interface AnimeCardProps {
   anime: IAnime;
 }

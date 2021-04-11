@@ -8,6 +8,7 @@ const widthStyleContainer = css`
     margin: 0 auto;
     padding: 0 16px;
 `;
+
 export const Container = styled.div`
     overflow: hidden;
     & > header{
@@ -60,12 +61,16 @@ export const Container = styled.div`
     main {
         ${widthStyleContainer}
         overflow: hidden;
-        display: grid;
-        grid-template-columns: auto auto;
+        /* display: grid;
+        grid-template-columns: auto auto; */
         gap: 16px;
-        /* display: flex; */
-        .sections{
-            width: 250px;
+        display: flex;
+        & > div:nth-child(1){
+            flex: 0 0 ${(992/1240) * 100}%;
+            max-width: ${(992/1240) * 100}%;
+        }
+        & > .sections{
+            min-width: 250px;
         }
     }
 `;

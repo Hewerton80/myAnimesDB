@@ -17,11 +17,6 @@ export const GlobalStyle = createGlobalStyle`
         overflow-x: hidden;
     }
 
- 
-body::-webkit-scrollbar-thumb {
-  background-color: darkgrey;
-  outline: 1px solid slategrey;
-}
     p, span, h1, h2, h3, h4, h5, h6, a, b {
         font-family: Arial, Helvetica, sans-serif;
     }

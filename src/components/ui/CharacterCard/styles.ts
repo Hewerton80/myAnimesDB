@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
 
-const widthImage = 114;
-const heightImage = 161.36;
+const widthImage = 60;
+const heightImage = 93;
 
 export const Container = styled.div`
     margin: 0 10px 10px 0;
@@ -23,6 +23,7 @@ export const Container = styled.div`
             transition: .3s;
             cursor: pointer;
             position: relative;
+            object-fit: cover;
             &:hover{
                 transform: scale(1.1);
             }
@@ -30,13 +31,8 @@ export const Container = styled.div`
     }
     & > p{
         margin-top: 2px;
-        font-size: 14px;
+        font-size: 12px;
         overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 1; /* number of lines to show */
-        -webkit-box-orient: vertical;
-        max-width: ${heightImage}px;
     }
     & .anime-footer {
         display: flex;

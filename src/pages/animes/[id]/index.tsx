@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Container } from './styles';
-import { AiFillStar } from 'react-icons/ai';
-import useAnime, { IAnime } from '../../../hooks/useAnime';
+import { AiFillStar, AiOutlineRight } from 'react-icons/ai';
+import useAnime from '../../../hooks/useAnime';
 import GlobalContainer from '../../../components/tanpletes/GlobalContainer';
 import colors from '../../../assets/colors';
 // import moment from 'moment';
@@ -11,6 +11,9 @@ import useEpisode from '../../../hooks/useEpisode';
 import Link from 'next/link';
 // import { FaUserAlt } from 'react-icons/fa';
 import EpisodeCard from '../../../components/ui/EpisodeCard';
+import { onlySomeCharacatersFields } from '../../../hooks/useCharacter';
+import { IAnime } from '../../../models/anime';
+import CharacterCard from '../../../components/ui/CharacterCard';
 
 function Anime() {
   const router = useRouter();
@@ -22,27 +25,33 @@ function Anime() {
 
   useEffect(() => {
     const id = router.query.id;
-    getAnimes({
-      "filter[id]": id as string
-    })
-    getEpisodes(id as string, {});
+    if (id) {
+      getAnimes({
+        'filter[id]': id as string,
+        'include': 'characters.character',
+        'fields[characters]': onlySomeCharacatersFields
+      })
+      getEpisodes(id as string, {});
+
+    }
 
   }, [router]);
 
-  useEffect(() => {
+  const handleAppDimensions = useCallback(() => {
     if (iframeRef.current) {
       iframeRef.current.style.height = `${iframeRef?.current?.offsetWidth * 0.56}px`;
     }
+  }, []);
+
+  useEffect(() => {
     window.addEventListener('resize', () => {
-      if (iframeRef.current) {
-        iframeRef.current.style.height = `${iframeRef?.current?.offsetWidth * 0.56}px`;
-      }
+      handleAppDimensions()
     })
     return () => window.removeEventListener('resize', () => { });
   }, []);
 
   const handleShowAllSynopses = useCallback((synopsis: string | undefined) => {
-    return showAllSynopsis && typeof synopsis === 'string' ? (
+    return showAllSynopsis && typeof synopsis === 'string' && synopsis.length > 300 ? (
       `${synopsis.slice(0, 300)} `
     ) : (
       synopsis
@@ -54,6 +63,9 @@ function Anime() {
   return (
     <GlobalContainer>
       <Container>
+        <div className='path'>
+          <p><Link href={'/animes'}>Animes</Link> <AiOutlineRight size={14} color={colors.blue} /> {anime?.attributes?.canonicalTitle}</p>
+        </div>
         <div>
           <div>
             <img src={anime?.attributes?.posterImage?.original} alt={anime?.attributes?.canonicalTitle} style={{ transform: '' }} />
@@ -115,23 +127,32 @@ function Anime() {
               <p>
                 {handleShowAllSynopses(anime?.attributes?.synopsis)}
                 <span
-                  onClick={()=>setShowAllSynopsis(currentShowAllSynopsis => !currentShowAllSynopsis)}
+                  onClick={() => setShowAllSynopsis(currentShowAllSynopsis => !currentShowAllSynopsis)}
                 >
-                  {showAllSynopsis ?
-                    '...Mostrar mais'
-                    :
-                    ' Mostrar menos'
+                  {
+                    typeof anime?.attributes?.synopsis === 'string' && anime?.attributes?.synopsis.length > 300 && (
+                      showAllSynopsis ?
+                        '...Mostrar mais'
+                        :
+                        ' Mostrar menos'
+                    )
                   }
                 </span>
               </p>
             </div>
-            <div className='video'>
-              <iframe
-                ref={iframeRef}
-                id="player"
-                src={`https://www.youtube.com/embed/${anime?.attributes?.youtubeVideoId}`}
-              />
-            </div>
+            {
+              anime?.attributes?.youtubeVideoId && (
+                <div className='video'>
+                  <iframe
+                    ref={iframeRef}
+                    onLoad={handleAppDimensions}
+                    id='player'
+                    src={`https://www.youtube.com/embed/${anime?.attributes?.youtubeVideoId}`}
+                  />
+                </div>
+              )
+            }
+
             {episodes.length > 0 &&
               <div className='episodes'>
                 <div><h4>Episódios</h4> <Link href='#'>Ver todos</Link> </div>
@@ -148,6 +169,21 @@ function Anime() {
               </div>
             }
 
+            {anime.characters && anime.characters.length > 0 &&
+              <div className='characters'>
+                <div><h4>Personagens</h4></div>
+                <div>
+                  {
+                    anime.characters.map((character) => (
+                      <CharacterCard
+                        key={character.id}
+                        character={character}
+                      />
+                    ))
+                  }
+                </div>
+              </div>
+            }
           </section>
         </div>
       </Container>
