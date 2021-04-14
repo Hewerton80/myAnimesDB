@@ -13,7 +13,7 @@ export const Container = styled.div`
         margin-bottom: 16px;
         p, a {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 0.85rem; //14px
             color: ${colors.blue};
         }
     }
@@ -34,13 +34,13 @@ export const Container = styled.div`
                 margin-top: 8px;
                 b, p {
                     color: ${colors.black};
-                    font-size: 13px;
+                    font-size: 0.8125rem; //13px
                 }
                 b{
                     margin-right: 2px;
                 }
                 .score{
-                    font-size: 24px;
+                    font-size: 1.5rem; //24px
                     font-weight: bold;
                     color: ${colors.blue};
                 }
@@ -82,13 +82,13 @@ export const Container = styled.div`
                         margin-bottom: 16px;
                         span {
                             color: ${colors.black};
-                            font-size: 12px;
+                            font-size: 0.75rem; //12px
                             margin-bottom: 4px;
                             font-weight: bold;
                         }
                         b {
                             color: ${colors.blue};
-                            font-size: 16px;
+                            font-size: 1rem; //16px
                         }
                     }
                 }
@@ -105,7 +105,7 @@ export const Container = styled.div`
                     padding-bottom: 8px;
                 }
                 p {
-                    font-size: 14px;
+                    font-size: 0.85rem; //14px
                     text-justify: distribute;
                     text-align: justify;
                     span{
@@ -137,7 +137,7 @@ export const Container = styled.div`
                     }
                     a {
                         color: ${colors.blue};
-                        font-size: 12px;
+                        font-size: 0.75rem; //12px
                         font-weight: bold;
                         border-bottom: solid 0.5px ${colors.primary};
                         &:hover{

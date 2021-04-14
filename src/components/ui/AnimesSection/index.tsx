@@ -26,7 +26,7 @@ function AnimesSection({ title, animesFileds }: AnimesSectionProps) {
   return (
     <Container>
       <div>
-        <header><h5>{title}</h5><Link href="#">Ver todos</Link></header>
+        <header><h5>{title}</h5><Link href={`/animes?sort=${animesFileds}`}>Ver todos</Link></header>
         <ul>
           {
             animes.map((anime, i) => (

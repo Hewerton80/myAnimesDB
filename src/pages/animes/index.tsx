@@ -14,39 +14,40 @@ function Animes() {
 
   const [pageLimit, setPageLimit] = useState(20);
   const [page, setPage] = useState(1);
-  const [filters, setFilters] = useState<IQueryParamsAnime>(
-    Object.keys(router.query).length > 0 ?
-      router.query :
-      {
-        'sort': EAnimesFileds.Slug
-      }
-  );
+  const [filters, setFilters] = useState<IQueryParamsAnime>({
+    'sort': EAnimesFileds.Slug
+  });
 
-  useEffect(() => {
-    console.log(router.query);
+  const handleGetAnimes = (numPage = null, query = null) => {
+    console.log('query: ',query)
+    numPage = numPage ? numPage : page;
+    query = query ? query : filters;
+    console.log('page: ', numPage)
+    console.log('offset: ', numPage)
     getAnimes({
-      ...filters,
-      'fields[anime]': onlySomeAnimesFilds,
-      'page[limit]': pageLimit,
-      'page[offset]': pageLimit * (page - 1)
-    });
-  }, []);
-
-
-  const handleGetAnimes = useCallback((numPage) => {
-    getAnimes({
-      ...filters,
+      ...query,
       'fields[anime]': onlySomeAnimesFilds,
       'page[limit]': pageLimit,
       'page[offset]': pageLimit * (numPage - 1)
     });
-  }, [page, pageLimit, filters]);
+  };
 
-  const handleChange = useCallback((event, page) => {
+  const handleChange = (event, page) => {
     console.log('handleChange: ', page);
     setPage(page);
-    handleGetAnimes(page);
-  }, [handleGetAnimes]);
+    handleGetAnimes(page, null);
+  };
+
+  useEffect(() => {
+    const query = Object.keys(router.query).length > 0 ?
+      router.query :
+      {
+        'sort': EAnimesFileds.Slug
+      }
+
+    setFilters(query);
+    handleGetAnimes(null, query);
+  }, [router]);
 
   return (
     <GlobalContainer>

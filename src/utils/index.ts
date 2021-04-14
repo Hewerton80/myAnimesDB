@@ -12,3 +12,13 @@ export const getFormatDate = (date: string | string) => {
 export const getScoreFormat = (score: string | number) => {
     return score ? (Number(score) / 10).toFixed(2) : '';
 }
+
+export const debounce = (callback: any, wait: number) => {
+    let timerId: NodeJS.Timeout;
+    return (...args: any) => {
+        clearTimeout(timerId);
+        timerId = setTimeout(() => {
+            callback(...args);
+        }, wait);
+    };
+}

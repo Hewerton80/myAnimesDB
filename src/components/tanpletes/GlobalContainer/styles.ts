@@ -22,13 +22,16 @@ export const Container = styled.div`
         & > div {
             ${widthStyleContainer}
             display: flex;
-            
+            justify-content: space-between;
             height: 100%;
             
             position: relative;
             nav {
-                position: absolute;
+                /* position: absolute; */
                 height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
                 ul{
                     height: 100%;
                     display: flex;
@@ -42,7 +45,7 @@ export const Container = styled.div`
                         &:hover a {
                             transform: scale(1.1);
                         }
-                        a {
+                        a{
                             transition: 0.2s;
                             color: ${colors.primary};
                             /* width: 100%; */
@@ -50,8 +53,12 @@ export const Container = styled.div`
                             padding: 0 24px;
                             height: 40px;
                             align-items: center;
-                            font-size: 16px;
+                            font-size: 1rem; //16px
                             font-weight: bold;
+                        }
+                        & > button {
+                            padding: 0;
+                            height: 40px;
                         }
                     }
                 }

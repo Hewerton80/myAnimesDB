@@ -32,9 +32,7 @@ function Anime() {
         'fields[characters]': onlySomeCharacatersFields
       })
       getEpisodes(id as string, {});
-
     }
-
   }, [router]);
 
   const handleAppDimensions = useCallback(() => {

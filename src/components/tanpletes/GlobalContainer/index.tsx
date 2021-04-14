@@ -4,7 +4,9 @@ import { Container } from './styles';
 import { EAnimesFileds } from '../../../hooks/useAnime';
 import AnimesSection from '../../ui/AnimesSection';
 import { useRouter } from 'next/router';
-
+import { AiOutlineSearch } from 'react-icons/ai';
+import IconButton from '@material-ui/core/IconButton';
+import colors from '../../../assets/colors';
 interface GlobalContainerProps {
   children: ReactNode;
 }
@@ -25,6 +27,13 @@ function GlobalContainer({ children }: GlobalContainerProps) {
               <li className={router.pathname.includes('/animes')? 'active': ''}>
                 <Link href='/animes'>Animes</Link>
               </li>
+              <li>
+                <IconButton
+                  color='primary'
+                >
+                  <AiOutlineSearch color={colors.primary} size={24}/>
+                </IconButton>
+                </li>
             </ul>
           </nav>
         </div>

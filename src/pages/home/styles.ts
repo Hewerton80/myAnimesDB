@@ -23,7 +23,7 @@ export const Container = styled.div`
             }  
             a {
                 color: ${colors.blue};
-                font-size: 14px;
+                font-size: 0.85rem; //14px
                 font-weight: bold;
                 border-bottom: solid 0.5px ${colors.primary};
                 &:hover{

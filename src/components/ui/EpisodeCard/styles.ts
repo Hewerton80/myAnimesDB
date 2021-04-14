@@ -23,7 +23,7 @@ export const Container = styled.div`
             p{
                 color: ${colors.primary};
                 padding: 2px;
-                font-size: 12px;
+                font-size: 0.75rem; //12px
             }
         }
         a{
@@ -44,7 +44,7 @@ export const Container = styled.div`
     }
     & > p{
         margin-top: 2px;
-        font-size: 12px;
+        font-size: 0.75rem; //12px
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -57,7 +57,7 @@ export const Container = styled.div`
         span{
             display: flex;
             align-items: center;
-            font-size: 12px;
+            font-size: 0.75rem; //12px
             color: ${colors.grey};
             margin-right: 8px;
         }

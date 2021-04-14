@@ -26,7 +26,7 @@ export const Container = styled.section`
             }
             a {
                 color: ${colors.primary};
-                font-size: 12px;
+                font-size: 0.75rem; //12px
                 border-bottom: solid 0.5px ${colors.blue};
                 &:hover{
                     border-color: ${colors.primary};
@@ -41,7 +41,7 @@ export const Container = styled.section`
                 display: flex;
                 & > p{
                     margin-right: 4px;
-                    font-size: 16px;
+                    font-size: 1rem; //16px
                     font-weight: bold;                        
                 } 
                 img {
@@ -53,7 +53,7 @@ export const Container = styled.section`
                     display: flex;
                     flex-direction: column;
                     a {
-                        font-size: 14px;
+                        font-size: 0.875rem; //14px
                         color: ${colors.blue};
                         font-weight: bold;
                         margin-bottom: 2px;
@@ -73,7 +73,7 @@ export const Container = styled.section`
                         span{
                             display: flex;
                             align-items: center;
-                            font-size: 12px;
+                            font-size: 0.75rem; //12px
                             color: ${colors.grey};
                             margin-right: 8px;
                         }
