@@ -15,11 +15,62 @@ export const Container = styled.div`
         background: ${colors.black};
         height: 100px;
         margin-bottom: 16px;
-        img{
+        position: relative;
+        & > img{
             position: absolute;
             filter: opacity(.3);
         }
-        & > div {
+        & > div:nth-child(2) {
+            ${widthStyleContainer}
+            position: absolute;
+            left: 50%;
+            z-index: 10;
+            bottom: 0;
+            transform: translateX(-50%);
+            transition: 0.5s ease-in;
+            box-shadow: 2px 0px 10px rgb(0 0 0 / 20%);
+            background: ${colors.primary};
+           
+            & > div:nth-child(1){
+                
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 70px;
+                input {
+                    width: 100%;
+                    background: transparent;
+                    border: none;
+                    outline: none;
+                    font-size: 1.125rem; //18px
+                    /* height: 100px; */
+                }
+            }
+            & > div:nth-child(2){
+                position: absolute;
+                background: ${colors.primary};
+                & > ul {
+                    border: 3px solid ${colors.primary};
+                    & > a{
+                        display: flex;
+                        ${widthStyleContainer}
+                        /* height: 70px; */
+                        /* box-shadow: 2px 0px 10px rgb(0 0 0 / 20%); */
+                        border-bottom: 1px solid ${colors.grey};
+                        transition: .3s;
+                        padding: 16px 0;
+                        &:hover{
+                            background: ${colors.secondary};
+                        }
+                    }
+                        
+                    
+                }
+            }
+            
+            
+        }
+        & > div:nth-child(3) {
             ${widthStyleContainer}
             display: flex;
             justify-content: space-between;
