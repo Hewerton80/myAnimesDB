@@ -1,5 +1,5 @@
-import { Link } from '@material-ui/core';
 import { IAnime } from '../../../models/anime';
+import Link from 'next/link';
 import colors from '../../../assets/colors';
 import { AiFillStar } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
@@ -30,8 +30,7 @@ function AnimesList({ anime, i, animesLength }: AnimesListProps) {
       </div>
     </Li>
     {
-      animesLength && (i < (animesLength - 1) && <hr />)
-
+      animesLength && (i < animesLength ) && <hr style={{margin: '8px 0'}} />
     }
     </>
   );

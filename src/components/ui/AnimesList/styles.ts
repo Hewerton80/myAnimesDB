@@ -42,7 +42,7 @@ export const Li = styled.li`
         }
     }
     
-    hr {
+    & > hr {
         margin: 8px 0;
     }
 `;
