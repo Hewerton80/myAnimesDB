@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useContext } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import useAnime, { onlySomeAnimesFilds } from '../../../hooks/useAnime';
+import useAnime, { onlySomeAnimesFields } from '../../../hooks/useAnime';
 import { Container } from './styles';
 import IconButton from '@material-ui/core/IconButton';
 import colors from '../../../assets/colors';
@@ -45,10 +45,10 @@ function InputSearch() {
 
     const handleChangeInput = useDebouncedCallback(() => {
         getAnimes({
-            // 'sort': EAnimesFileds.CanonicalTitle,
+            // 'sort': EAnimesFields.CanonicalTitle,
             'filter[text]': animeText,
             "page[limit]": 20,
-            "fields[anime]": onlySomeAnimesFilds
+            "fields[anime]": onlySomeAnimesFields
         });
         setIsLoading(false);
     }, 1000);

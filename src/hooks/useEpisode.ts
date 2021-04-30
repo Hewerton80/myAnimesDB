@@ -5,6 +5,12 @@ interface IQueryParamsAnime {
 
 }
 
+export const getEpisodesFromApi = async (idAnime: string, queryParams: IQueryParamsAnime) => {
+    return apiKitsu.get(`/anime/${idAnime}/episodes`, {
+        params: queryParams
+    });
+}
+
 const useEpisode = () => {
 
     const [episodes, setEpisodes] = useState<IEpisode[]>([]);
@@ -13,9 +19,7 @@ const useEpisode = () => {
     const getEpisodes = useCallback(async (idAnime: string, queryParams: IQueryParamsAnime) => {
         try {
             setIsLoadingEpisodes(true);
-            const response = await apiKitsu.get(`/anime/${idAnime}/episodes`, {
-                params: queryParams
-            });
+            const response = await getEpisodesFromApi(idAnime, queryParams);
             setEpisodes(response.data.data);
         }
         catch (err) {

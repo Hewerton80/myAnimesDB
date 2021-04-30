@@ -2,6 +2,7 @@ module.exports = {
     future: {
         webpack5: true,
     },
+    pageExtensions: ['tsx'],
     async redirects() {
         return [
             {

@@ -3,7 +3,7 @@ import apiKitsu from '../apis/kitsuApi';
 import { IAnime } from "../models/anime";
 import { ICharacter } from "../models/character";
 
-export enum EAnimesFileds {
+export enum EAnimesFields {
     Slug = 'slug',
     PopularityRank = 'popularityRank',
     FavoritesCount = '-favoritesCount',
@@ -52,7 +52,13 @@ export interface IQueryParamsAnime {
     'page[offset]'?: number;
 }
 
-export const onlySomeAnimesFilds = 'slug,createdAt,canonicalTitle,averageRating,ratingFrequencies,userCount,favoritesCount,startDate,endDate,popularityRank,ratingRank,ageRating,ageRatingGuide,subtype,status,tba,posterImage,coverImage,episodeCount,episodeLength,totalLength,youtubeVideoId';
+export const onlySomeAnimesFields = 'slug,createdAt,canonicalTitle,averageRating,ratingFrequencies,userCount,favoritesCount,startDate,endDate,popularityRank,ratingRank,ageRating,ageRatingGuide,subtype,status,tba,posterImage,coverImage,episodeCount,episodeLength,totalLength,youtubeVideoId';
+
+export const getAnimesFromApi = async (queryParams: IQueryParamsAnime) =>{
+    return apiKitsu.get('/anime', {
+        params: queryParams
+    });
+}
 
 const useAnime = () => {
     const [animes, setAnimes] = useState<IAnime[]>([]);
@@ -62,9 +68,7 @@ const useAnime = () => {
     const getAnimes = useCallback(async (queryParams: IQueryParamsAnime) => {
         try {
             setIsLoadingAnimes(true);
-            const response = await apiKitsu.get('/anime', {
-                params: queryParams
-            });
+            const response = await getAnimesFromApi(queryParams);
             const animesResponse: IAnime[] = response.data.data;
             let characters = [];
             if (queryParams.include === 'characters.character' && response.data.included) {

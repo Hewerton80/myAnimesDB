@@ -1,35 +1,17 @@
-import { useEffect/*, MouseEvent, useCallback, , useRef*/ } from 'react';
+import { GetStaticProps } from 'next';
 import { Container } from './styles';
 import Head from 'next/head';
-import GlobalContainer from '../../components/tanpletes/GlobalContainer';
-import useAnime, { EAnimesFileds, onlySomeAnimesFilds } from '../../hooks/useAnime';
+import { EAnimesFields, getAnimesFromApi, onlySomeAnimesFields } from '../../hooks/useAnime';
 import AnimeCard from '../../components/ui/AnimeCard';
 import Link from 'next/link';
 import moment from 'moment';
-// import Button from '../../../components/ui/Button';
+import { IAnime } from '../../models/anime';
+interface HomeProps {
+  popularityRankAnimes: IAnime[],
+  mostRecentAnimes: IAnime[]
+}
 
-function Animes() {
-  const { animes: popularityRankAnimes, getAnimes: getPopularityRankAnimes } = useAnime();
-  const { animes: mostRecentAnimes, getAnimes: getMostRecentAnimes } = useAnime();
-
-  // const rowAnimes = useRef([]);
-
-  useEffect(() => {
-    getPopularityRankAnimes({
-      'sort': `${EAnimesFileds.PopularityRank}`,
-      'fields[anime]': onlySomeAnimesFilds,
-      'filter[seasonYear]': moment().get('year'),
-      'page[limit]': 20
-    });
-
-    getMostRecentAnimes({
-      'sort': EAnimesFileds.StartDate,
-      'fields[anime]': onlySomeAnimesFilds,
-      'page[limit]': 20
-    });
-
-  }, []);
-
+function Home({ popularityRankAnimes, mostRecentAnimes }: HomeProps) {
   // const handleDragStart = useCallback((e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, i: number) => {
   //   console.log(e)
   //   const pos = {
@@ -63,55 +45,85 @@ function Animes() {
         <title>My Animes</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <GlobalContainer>
-        <Container>
+      <Container>
+        <div>
+          <header>
+            <h3>
+              Mais Populares em {moment().get('year')}
+            </h3>
+            <Link href={{
+              pathname: `/animes`,
+              query: {
+                sort: EAnimesFields.PopularityRank,
+                'filter[seasonYear]': moment().get('year')
+              }
+            }} >
+              Ver todos
+              </Link>
+          </header>
           <div>
-            <header>
-              <h3>
-                Mais Populares em {moment().get('year')}
-              </h3>
-              <Link href={{
-                pathname: `/animes`,
-                query: {
-                  sort: EAnimesFileds.PopularityRank,
-                  'filter[seasonYear]': moment().get('year')
-                }
-              }} >
-                Ver todos
-              </Link>
-            </header>
-            <div>
-              {popularityRankAnimes.map((anime) => (
-                <AnimeCard
-                  key={anime.id}
-                  anime={anime}
-                />
-              ))}
-            </div>
-            <header>
-              <h3>Mais recentes</h3>
-              <Link href={{
-                pathname: `/animes`,
-                query: {
-                  sort: EAnimesFileds.StartDate,
-                }
-              }} >
-                Ver todos
-              </Link>
-            </header>
-            <div>
-              {mostRecentAnimes.map((anime) => (
-                <AnimeCard
-                  key={anime.id}
-                  anime={anime}
-                />
-              ))}
-            </div>
+            {popularityRankAnimes.map((anime) => (
+              <AnimeCard
+                key={anime.id}
+                anime={anime}
+              />
+            ))}
           </div>
-        </Container>
-      </GlobalContainer>
+          <header>
+            <h3>Mais recentes</h3>
+            <Link href={{
+              pathname: `/animes`,
+              query: {
+                sort: EAnimesFields.StartDate,
+              }
+            }} >
+              Ver todos
+              </Link>
+          </header>
+          <div>
+            {mostRecentAnimes.map((anime) => (
+              <AnimeCard
+                key={anime.id}
+                anime={anime}
+              />
+            ))}
+          </div>
+        </div>
+      </Container>
     </>
   );
 };
 
-export default Animes;
+export const getStaticProps: GetStaticProps = async () => {
+
+  const responsePopularityRankAnimesPromise = getAnimesFromApi({
+    'sort': `${EAnimesFields.PopularityRank}`,
+    'fields[anime]': onlySomeAnimesFields,
+    'filter[seasonYear]': moment().get('year'),
+    'page[limit]': 20
+  })
+
+  const responseMostRecentAnimesPromise = getAnimesFromApi({
+    'sort': EAnimesFields.StartDate,
+    'fields[anime]': onlySomeAnimesFields,
+    'page[limit]': 20
+  });
+
+  const [responsePopularityRankAnimes, responseMostRecentAnimes] = await Promise.all([
+    responsePopularityRankAnimesPromise,
+    responseMostRecentAnimesPromise
+  ])
+
+  const popularityRankAnimes: IAnime[] = responsePopularityRankAnimes.data.data;
+  const mostRecentAnimes: IAnime[] = responseMostRecentAnimes.data.data;
+
+  return {
+    props: {
+      popularityRankAnimes,
+      mostRecentAnimes
+    }, // will be passed to the page component as props
+    revalidate: 60 * 60 * 60 * 8
+  }
+}
+
+export default Home;

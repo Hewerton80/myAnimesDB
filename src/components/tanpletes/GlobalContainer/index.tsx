@@ -1,7 +1,7 @@
 import { ReactNode, useContext } from 'react';
 import Link from 'next/link'
 import { Container } from './styles';
-import { EAnimesFileds } from '../../../hooks/useAnime';
+import { EAnimesFields } from '../../../hooks/useAnime';
 import AnimesSection from '../../ui/AnimesSection';
 import { useRouter } from 'next/router';
 import { AiOutlineSearch } from 'react-icons/ai';
@@ -50,11 +50,11 @@ function GlobalContainer({ children }: GlobalContainerProps) {
         <div className='sections'>
           <AnimesSection
             title='Top Animes Favoritos'
-            animesFileds={EAnimesFileds.FavoritesCount}
+            animesFields={EAnimesFields.FavoritesCount}
           />
           <AnimesSection
             title='Top Animes avaliados'
-            animesFileds={EAnimesFileds.RatingRank}
+            animesFields={EAnimesFields.RatingRank}
           />
         </div>
       </main>
