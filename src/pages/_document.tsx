@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript, DocumentContext } from 'next/document'
+import Document, { DocumentContext } from 'next/document'
 import { ServerStyleSheet } from 'styled-components';
 
 class MyDocument extends Document {
@@ -13,7 +13,7 @@ class MyDocument extends Document {
                     enhanceApp: (App) => (props) =>
                         sheet.collectStyles(<App {...props} />),
                     // useful for wrapping in a per-page basis
-                    enhanceComponent: (Component) => Component,
+                    //enhanceComponent: (Component) => Component,
                 })
 
             // Run the parent `getInitialProps`, it now includes the custom `renderPage`
@@ -31,20 +31,6 @@ class MyDocument extends Document {
         } finally {
             sheet.seal()
         }
-    }
-
-    render() {
-        return (
-            <Html>
-                <Head>
-                    <title>my animes</title>
-                </Head>
-                <body>
-                    <Main />
-                    <NextScript />
-                </body>
-            </Html>
-        )
     }
 }
 
