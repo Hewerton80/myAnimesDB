@@ -24,16 +24,16 @@ function GlobalContainer({ children }: GlobalContainerProps) {
       <InputSearch/>
       <header>
         <img src="/images/banner.jpg" alt="banner" />
-        <div>
-          <nav>
-            <ul>
-              <li className={router.pathname === '/home' ? 'active' : ''}>
+        <div className='hedaerContainer'>
+          <nav className='nav'>
+            <ul className='itens'>
+              <li className={`item ${router.pathname === '/home' ? 'active' : ''}`}>
                 <Link href='/home'>Home</Link>
               </li>
-              <li className={router.pathname.includes('/animes') ? 'active' : ''}>
+              <li className={`item ${router.pathname.includes('/animes') ? 'active' : ''}`}>
                 <Link href='/animes'>Animes</Link>
               </li>
-              <li>
+              <li className='item'>
                 <IconButton
                   color='primary'
                   onClick={() => handleShowSearch(true)}

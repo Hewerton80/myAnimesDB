@@ -75,7 +75,7 @@ function Anime({ anime, episodes }: AnimeProps) {
         <p><Link href={'/animes'}>Animes</Link> <AiOutlineRight size={14} color={colors.blue} /> {anime?.attributes?.canonicalTitle}</p>
       </div>
       <div>
-        <div>
+        <aside>
           <img src={anime?.attributes?.posterImage?.original} alt={anime?.attributes?.canonicalTitle} style={{ transform: '' }} />
           <div>
             <AiFillStar size={32} color={colors.yellow2} /> <p className='score'>{getScoreFormat(anime?.attributes?.averageRating)}</p>/10
@@ -101,11 +101,11 @@ function Anime({ anime, episodes }: AnimeProps) {
           <div>
             <b>Tipo: </b><p>{anime?.attributes?.subtype ? anime?.attributes?.subtype : '?'}</p>
           </div>
-        </div>
+        </aside>
         <section>
-          <div><h3>{anime?.attributes?.canonicalTitle}</h3></div>
-          <div>
-            <div>
+          <div className='canonicalTitle' ><h3>{anime?.attributes?.canonicalTitle}</h3></div>
+          <div className='animeNumbersContainer'>
+            <div className='animesNumbers'>
               {anime?.attributes?.ratingRank &&
                 <div>
                   <span>Rank</span>
@@ -130,7 +130,7 @@ function Anime({ anime, episodes }: AnimeProps) {
               </div>
             </div>
           </div>
-          <div>
+          <div className='sinopse'>
             <div><h4>Sinopse</h4></div>
             <p>
               {handleShowAllSynopses(anime?.attributes?.synopsis)}

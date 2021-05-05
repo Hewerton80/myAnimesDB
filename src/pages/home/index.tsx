@@ -61,7 +61,7 @@ function Home({ popularityRankAnimes, mostRecentAnimes }: HomeProps) {
               Ver todos
               </Link>
           </header>
-          <div>
+          <div className='row'>
             {popularityRankAnimes.map((anime) => (
               <AnimeCard
                 key={anime.id}
@@ -80,7 +80,7 @@ function Home({ popularityRankAnimes, mostRecentAnimes }: HomeProps) {
               Ver todos
               </Link>
           </header>
-          <div>
+          <div className='row'>
             {mostRecentAnimes.map((anime) => (
               <AnimeCard
                 key={anime.id}
