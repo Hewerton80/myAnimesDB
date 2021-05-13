@@ -122,7 +122,7 @@ export const getStaticProps: GetStaticProps = async () => {
       popularityRankAnimes,
       mostRecentAnimes
     }, // will be passed to the page component as props
-    revalidate: 60 * 60 * 60 * 8
+    revalidate: 60 * 60 * 8
   }
 }
 

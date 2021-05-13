@@ -22,3 +22,20 @@ export const debounce = (callback: any, wait: number) => {
         }, wait);
     };
 }
+
+/**
+ * @param ms number
+ * @returns Promise<unknown>
+ */
+ export const sleep = (ms: number) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+/**
+ * 
+ * @param occurrences number
+ * @param value value
+ * @returns string
+ */
+export const repeat = (occurrences: number, value: string) => {
+    return new Array(occurrences + 1).join(`${value} `);
+}

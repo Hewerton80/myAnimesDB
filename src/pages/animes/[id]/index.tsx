@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Container } from './styles';
 import { AiFillStar, AiOutlineRight } from 'react-icons/ai';
@@ -16,8 +16,7 @@ import CharacterCard from '../../../components/ui/CharacterCard';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ICharacter } from '../../../models/character';
 import { IEpisode } from '../../../models/episode';
-
-
+import ReactPlayer from 'react-player/youtube'
 interface AnimeProps {
   anime: IAnime;
   episodes: IEpisode[]
@@ -26,7 +25,6 @@ function Anime({ anime, episodes }: AnimeProps) {
   const router = useRouter();
   // const { animes, getAnimes } = useAnime();
   // const { episodes, getEpisodes } = useEpisode();
-  const iframeRef = useRef<any>();
 
   const [showAllSynopsis, setShowAllSynopsis] = useState(true);
 
@@ -42,18 +40,14 @@ function Anime({ anime, episodes }: AnimeProps) {
   //   }
   // }, [router]);
 
-  const handleAppDimensions = useCallback(() => {
-    if (iframeRef.current) {
-      iframeRef.current.style.height = `${iframeRef?.current?.offsetWidth * 0.56}px`;
-    }
-  }, []);
 
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      handleAppDimensions()
-    })
-    return () => window.removeEventListener('resize', () => { });
-  }, []);
+
+  // useEffect(() => {
+  //   window.addEventListener('resize', () => {
+  //     handleAppDimensions()
+  //   })
+  //   return () => window.removeEventListener('resize', () => { });
+  // }, []);
 
   const handleShowAllSynopses = useCallback((synopsis: string | undefined) => {
     return showAllSynopsis && typeof synopsis === 'string' && synopsis?.length > 300 ? (
@@ -150,12 +144,12 @@ function Anime({ anime, episodes }: AnimeProps) {
           </div>
           {
             anime?.attributes?.youtubeVideoId && (
-              <div className='video'>
-                <iframe
-                  ref={iframeRef}
-                  onLoad={handleAppDimensions}
-                  id='player'
-                  src={`https://www.youtube.com/embed/${anime?.attributes?.youtubeVideoId}`}
+              <div className='player-wrapper'>
+                <ReactPlayer
+                  className='react-player'
+                  width='100%'
+                  height='100%'
+                  url={`https://www.youtube.com/embed/${anime?.attributes?.youtubeVideoId}`}
                 />
               </div>
             )
@@ -260,7 +254,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       anime,
       episodes
     },
-    revalidate: 60 * 60 * 60 * 8
+    revalidate: 60 * 60 * 24 //24h
   }
 }
 

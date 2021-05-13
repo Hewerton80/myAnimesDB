@@ -119,16 +119,16 @@ export const Container = styled.div`
         }
     }
 
-    .video{
-        width: 100%;
+    .player-wrapper{
         position: relative;
         margin-bottom: 16px;
-        & iframe {
-            width: 100%;
-            border: none;
+        padding-top: 56.25%; // Player ratio: 100 * (720 / 1280)
+        & > div{
+            position: absolute;
+            top: 0;
+            left: 0;
         }
     }
-
     .episodes, .characters {
         margin-bottom: 16px;
         & > div:nth-child(1) {
