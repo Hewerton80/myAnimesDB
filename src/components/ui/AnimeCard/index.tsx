@@ -5,26 +5,45 @@ import { FaUserAlt } from 'react-icons/fa';
 import { getScoreFormat } from '../../../utils';
 import colors from '../../../assets/colors';
 import { IAnime } from '../../../models/anime';
+import Shimmer from '../Shimmer';
 interface AnimeCardProps {
-  anime: IAnime;
+  anime?: IAnime;
+  isLoagin?: boolean;
 }
 
-function AnimeCard({ anime }: AnimeCardProps) {
+function AnimeCard({ anime, isLoagin }: AnimeCardProps) {
   return (
-    <Container
-      title={anime.attributes.canonicalTitle}
-    >
+    <Container>
       <div>
-        <Link href={`/animes/${anime.id}`}>
-          <img draggable={false} src={anime?.attributes?.posterImage?.small} alt={anime.attributes.canonicalTitle} />
-        </Link>
+        {
+          isLoagin ?
+            <Shimmer />
+            :
+            <Link href={`/animes/${anime.id}`}>
+              <img draggable={false} src={anime?.attributes?.posterImage?.small} alt={anime.attributes.canonicalTitle} />
+            </Link>
+        }
       </div>
-      <p>{anime.attributes.canonicalTitle}</p>
-      <div className='anime-footer'>
-        <span>#{anime.attributes.ratingRank || '?'}</span>
-        <span><AiFillStar size={16} color={colors.yellow2} /> {getScoreFormat(anime.attributes.averageRating) || '?'}</span>
-        <span><FaUserAlt size={10} color={colors.yellow2} /> {anime.attributes.userCount}</span>
-      </div>
+      {
+        isLoagin ?
+        <>
+        <p>&nbsp;</p>
+        <div className='anime-footer'>
+          <span>&nbsp;</span>
+          <span>&nbsp;</span>
+          <span>&nbsp;</span>
+        </div>
+        </>
+        :
+          <>
+            <p>{anime.attributes.canonicalTitle}</p>
+            <div className='anime-footer'>
+              <span>#{anime.attributes.ratingRank || '?'}</span>
+              <span><AiFillStar size={16} color={colors.yellow2} /> {getScoreFormat(anime.attributes.averageRating) || '?'}</span>
+              <span><FaUserAlt size={10} color={colors.yellow2} /> {anime.attributes.userCount}</span>
+            </div>
+          </>
+      }
     </Container>
   );
 };

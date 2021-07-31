@@ -56,12 +56,21 @@ function Animes() {
         <h3>Animes</h3>
       </div>
       <div>
-        {animes.map(anime => (
-          <AnimeCard
-            key={anime.id}
-            anime={anime}
-          />
-        ))}
+        {isLoadingAnimes ?
+          Array.from(Array(16).keys()).map((_, i) => (
+            <AnimeCard
+              key={i}
+              isLoagin={true}
+            />
+          ))
+          :
+          animes.map(anime => (
+            <AnimeCard
+              key={anime.id}
+              anime={anime}
+            />
+          ))
+        }
       </div>
       <div>
         <Pagination
