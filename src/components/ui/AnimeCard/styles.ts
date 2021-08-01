@@ -19,8 +19,8 @@ export const Container = styled.div`
             overflow: hidden;
         }
         img {
-            width: 100%;
-            height: 100%;
+            height: ${heightImage}px;
+            width: ${widthImage}px;
             transition: .3s;
             cursor: pointer;
             position: relative;

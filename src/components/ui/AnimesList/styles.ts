@@ -18,8 +18,8 @@ export const Li = styled.li`
         width: ${widthImageAnimeList}px;
     }
     img {
-        height: 100%;
-        width: 100%;
+        height: ${heightImageAnimeList}px;
+        width: ${widthImageAnimeList}px;
         object-fit: cover;
     }
     & > div {

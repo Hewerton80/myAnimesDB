@@ -33,8 +33,8 @@ export const Container = styled.div`
             overflow: hidden;
         }
         img {
-            height: 100%;
-            width: 100%;
+            height: ${heightEpisodeImage}px;
+            width: ${widthEpisodeImage}px;
             transition: .3s;
             cursor: pointer;
             position: relative;
