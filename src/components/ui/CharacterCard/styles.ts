@@ -1,25 +1,25 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
 
-const widthImage = 60;
-const heightImage = 93;
+export const widthCharacterImage = 60;
+export const heightCharacterImage = 93;
 
 export const Container = styled.div`
     margin: 0 10px 10px 0;
-    width: ${widthImage}px;
+    width: ${widthCharacterImage}px;
     position: relative;
     & > div:nth-child(1) {
-        height: ${heightImage}px;
-        width: ${widthImage}px;
+        height: ${heightCharacterImage}px;
+        width: ${widthCharacterImage}px;
         overflow: hidden;
         a{
-            height: ${heightImage}px;
-            width: ${widthImage}px;
+            height: ${heightCharacterImage}px;
+            width: ${widthCharacterImage}px;
             overflow: hidden;
         }
         img {
-            width: 100%;
-            height: 100%;
+            width: ${widthCharacterImage}px;
+            height: ${heightCharacterImage}px;
             transition: .3s;
             cursor: pointer;
             position: relative;

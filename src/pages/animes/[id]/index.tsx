@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
-import { Container } from './styles';
+import { Container, heightAnimeImage, widthAnimeImage } from './styles';
 import { AiFillStar, AiOutlineRight } from 'react-icons/ai';
 import useAnime, { EAnimesFields, getAnimesFromApi, onlySomeAnimesFields } from '../../../hooks/useAnime';
 import colors from '../../../assets/colors';
@@ -17,6 +17,7 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import { ICharacter } from '../../../models/character';
 import { IEpisode } from '../../../models/episode';
 import ReactPlayer from 'react-player/youtube'
+import Image from 'next/image';
 interface AnimeProps {
   anime: IAnime;
   episodes: IEpisode[]
@@ -70,7 +71,9 @@ function Anime({ anime, episodes }: AnimeProps) {
       </div>
       <div>
         <aside>
-          <img src={anime?.attributes?.posterImage?.original} alt={anime?.attributes?.canonicalTitle} style={{ transform: '' }} />
+          <figure>
+            <Image height={heightAnimeImage} width={widthAnimeImage} src={anime?.attributes?.posterImage?.original} alt={anime?.attributes?.canonicalTitle} />
+          </figure>
           <div>
             <AiFillStar size={32} color={colors.yellow2} /> <p className='score'>{getScoreFormat(anime?.attributes?.averageRating)}</p>/10
             </div>

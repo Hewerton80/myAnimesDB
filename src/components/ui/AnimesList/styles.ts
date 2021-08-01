@@ -3,8 +3,8 @@ import colors from '../../../assets/colors';
 import { LineClamp } from '../../css/LineClamp';
 export const widthImageAnimeList = 50;
 export const heightImageAnimeList = 70.9;
-export const Li = styled.li`
 
+export const Li = styled.li`
     display: flex;
     & > p{
         margin-right: 4px;
@@ -14,10 +14,12 @@ export const Li = styled.li`
     } 
     figure {
         margin-right: 4px;
- 
+        height: ${heightImageAnimeList}px;
+        width: ${widthImageAnimeList}px;
     }
     img {
-    
+        height: 100%;
+        width: 100%;
         object-fit: cover;
     }
     & > div {
@@ -33,7 +35,7 @@ export const Li = styled.li`
                 text-decoration: underline;
             }  
         } 
-        & > div{
+        & > div {
             display: flex;
             flex-wrap: wrap;
             span{

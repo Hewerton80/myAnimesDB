@@ -21,7 +21,9 @@ function AnimeCard({ anime, isLoagin }: AnimeCardProps) {
             <Shimmer />
             :
             <Link href={`/animes/${anime.id}`}>
-              <Image width={widthImage} height={heightImage} draggable={false} src={anime?.attributes?.posterImage?.small} alt={anime.attributes.canonicalTitle} />
+              <a>
+                <Image width={widthImage} height={heightImage} draggable={false} src={anime?.attributes?.posterImage?.small} alt={anime.attributes.canonicalTitle} />
+              </a>
             </Link>
         }
       </div>

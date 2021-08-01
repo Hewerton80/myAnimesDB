@@ -1,8 +1,8 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { ReactNode } from 'react';
 import { ICharacter } from '../../../models/character';
 
-import { Container } from './styles';
+import { Container, heightCharacterImage, widthCharacterImage } from './styles';
 
 interface CharacterCardProps {
   character: ICharacter;
@@ -14,9 +14,19 @@ function CharacterCard({ character }: CharacterCardProps) {
       title={character.attributes.canonicalName}
     >
       <div>
-        <Link href={'#'}>
-          <img draggable={false} src={character?.attributes?.image?.original} alt={character.attributes.canonicalName} />
-        </Link>
+        {character?.attributes?.image?.original &&
+          <Link href={'#'}>
+            <a>
+              <Image
+                width={widthCharacterImage}
+                height={heightCharacterImage}
+                draggable={false}
+                src={character?.attributes?.image?.original}
+                alt={character.attributes.canonicalName}
+              />
+            </a>
+          </Link>
+        }
       </div>
       <p>{character.attributes.canonicalName}</p>
       {/* <div className='character-footer'>

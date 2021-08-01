@@ -1,7 +1,8 @@
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { IEpisode } from '../../../models/episode';
-import { Container } from './styles';
+import { Container, heightEpisodeImage, widthEpisodeImage } from './styles';
 
 
 interface EpisodeCardProps {
@@ -17,14 +18,20 @@ function EpisodeCard({ episode }: EpisodeCardProps) {
           <p>Ep. {episode.attributes.number}</p>
           <p>{episode?.attributes?.length} min</p>
         </div>
-        <Link href={'#'}>
-          <img 
-            draggable={false} 
-            src={episode?.attributes?.thumbnail?.original} 
-            alt={episode?.attributes?.canonicalTitle} 
-            onError={e => {console.log('erro ao ler imagem: ', e )}}
-          />
-        </Link>
+        {episode?.attributes?.thumbnail?.original &&
+          <Link href={'#'}>
+            <a>
+              <img
+                width={widthEpisodeImage}
+                height={heightEpisodeImage}
+                draggable={false}
+                src={episode?.attributes?.thumbnail?.original}
+                alt={episode?.attributes?.canonicalTitle}
+                // onError={e => { console.log('erro ao ler imagem: ', e) }}
+              />
+            </a>
+          </Link>
+        }
       </div>
       <p>{episode?.attributes?.canonicalTitle}</p>
       {/* <div className='episode-footer'>

@@ -2,6 +2,9 @@ import styled from 'styled-components';
 import colors from '../../../assets/colors';
 import { ScrollBarCss } from '../../../components/css/ScrollBar';
 
+export const widthAnimeImage = 225;
+export const heightAnimeImage = 315.5;
+
 export const Container = styled.div`
     overflow-x: hidden;
     /* width: 1024px; */
@@ -25,9 +28,13 @@ export const Container = styled.div`
         display: flex;
         flex-direction: column;
         margin-right: 16px;
+        figure {
+            width: ${widthAnimeImage}px;
+            height: ${heightAnimeImage}px;
+        }
         img {
-            max-width: 225px;
-            max-height: 315.5px;
+            max-width: ${widthAnimeImage}px;
+            max-height: ${heightAnimeImage}px;
         }
         & > div{
             display: flex;

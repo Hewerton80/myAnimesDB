@@ -57,7 +57,7 @@ function Animes() {
       </div>
       <div>
         {isLoadingAnimes ?
-          Array.from(Array(16).keys()).map((_, i) => (
+          Array.from(Array(20).keys()).map((_, i) => (
             <AnimeCard
               key={i}
               isLoagin={true}

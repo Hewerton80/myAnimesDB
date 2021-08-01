@@ -2,18 +2,18 @@ import styled from 'styled-components';
 import colors from '../../../assets/colors';
 
 
-const widthImage = 120;
-const heightImage = 67.5;
+export const widthEpisodeImage = 120;
+export const heightEpisodeImage = 67.5;
 
 export const Container = styled.div`
     margin: 0 10px 10px 0;
-    width: ${widthImage}px;
+    width: ${widthEpisodeImage}px;
     & > div:nth-child(1) {
-        height: ${heightImage}px;
-        width: ${widthImage}px;
+        height: ${heightEpisodeImage}px;
+        width: ${widthEpisodeImage}px;
         overflow: hidden;
         position: relative;
-        div{
+        > div {
             position: absolute;
             width: 100%;
             z-index: 2;
@@ -27,13 +27,14 @@ export const Container = styled.div`
             }
         }
         a{
-            height: ${heightImage}px;
-            width: ${widthImage}px;
+            display: flex;
+            height: 100%;
+            width: 100%;
             overflow: hidden;
         }
         img {
-            width: 100%;
             height: 100%;
+            width: 100%;
             transition: .3s;
             cursor: pointer;
             position: relative;
@@ -50,7 +51,7 @@ export const Container = styled.div`
         display: -webkit-box;
         -webkit-line-clamp: 1; /* number of lines to show */
         -webkit-box-orient: vertical;
-        max-width: ${widthImage}px;
+        max-width: ${widthEpisodeImage}px;
     }
     & .episode-footer {
         display: flex;
