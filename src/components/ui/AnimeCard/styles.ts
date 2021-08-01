@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import colors from '../../../assets/colors';
 import { LineClamp } from '../../css/LineClamp';
 
-const widthImage = 114;
-const heightImage = 161.36;
+export const widthImage = 114;
+export const heightImage = 161.36;
 
 export const Container = styled.div`
     margin: 0 10px 10px 0;

@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
 import { LineClamp } from '../../css/LineClamp';
-
+export const widthImageAnimeList = 50;
+export const heightImageAnimeList = 70.9;
 export const Li = styled.li`
 
     display: flex;
@@ -11,10 +12,13 @@ export const Li = styled.li`
         font-weight: bold;
         color: ${colors.blue};                     
     } 
-    img {
+    figure {
         margin-right: 4px;
-        width: 50px;
-        height: 70.9px;
+ 
+    }
+    img {
+    
+        object-fit: cover;
     }
     & > div {
         display: flex;

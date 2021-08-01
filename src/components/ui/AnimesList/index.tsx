@@ -4,7 +4,8 @@ import colors from '../../../assets/colors';
 import { AiFillStar } from 'react-icons/ai';
 import { FaUserAlt } from 'react-icons/fa';
 import { getScoreFormat } from '../../../utils';
-import { Li } from './styles';
+import { Li, widthImageAnimeList, heightImageAnimeList } from './styles';
+import Image from 'next/image';
 
 interface AnimesListProps {
   anime: IAnime;
@@ -17,7 +18,9 @@ function AnimesList({ anime, i, animesLength }: AnimesListProps) {
     <>
     <Li>
       {i !== undefined && <p>{i}</p>}
-      <img draggable={false} src={anime.attributes.posterImage.small} alt={anime.attributes.canonicalTitle} />
+      <figure>
+        <Image width={widthImageAnimeList} height={heightImageAnimeList} draggable={false} src={anime.attributes.posterImage.small} alt={anime.attributes.canonicalTitle} />
+      </figure>
       <div title={anime.attributes.canonicalTitle}>
         <Link href={`/animes/${anime.id}`}>{anime.attributes.canonicalTitle}</Link>
         <div>
