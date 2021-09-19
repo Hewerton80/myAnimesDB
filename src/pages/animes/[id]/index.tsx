@@ -2,26 +2,28 @@ import { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Container, heightAnimeImage, widthAnimeImage } from './styles';
 import { AiFillStar, AiOutlineRight } from 'react-icons/ai';
-import useAnime, { EAnimesFields, getAnimesFromApi, onlySomeAnimesFields } from '../../../hooks/useAnime';
+import { EAnimesFields, getAnimesFromApi, onlySomeAnimesFields } from '../../../hooks/useAnime';
 import colors from '../../../assets/colors';
 // import moment from 'moment';
 import { getFormatDate, getScoreFormat } from '../../../utils';
-import useEpisode, { getEpisodesFromApi } from '../../../hooks/useEpisode';
+import { getEpisodesFromApi } from '../../../hooks/useEpisode';
 import Link from 'next/link';
 // import { FaUserAlt } from 'react-icons/fa';
-import EpisodeCard from '../../../components/ui/EpisodeCard';
+import EpisodeCard from '../../../components/general/EpisodeCard';
 import { onlySomeCharacatersFields } from '../../../hooks/useCharacter';
 import { IAnime } from '../../../models/anime';
-import CharacterCard from '../../../components/ui/CharacterCard';
+import CharacterCard from '../../../components/general/CharacterCard';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { ICharacter } from '../../../models/character';
 import { IEpisode } from '../../../models/episode';
 import ReactPlayer from 'react-player/youtube'
 import Image from 'next/image';
+import { useMemo } from 'react';
 interface AnimeProps {
   anime: IAnime;
   episodes: IEpisode[]
 }
+
 function Anime({ anime, episodes }: AnimeProps) {
   const router = useRouter();
   // const { animes, getAnimes } = useAnime();
@@ -29,6 +31,7 @@ function Anime({ anime, episodes }: AnimeProps) {
 
   const [showAllSynopsis, setShowAllSynopsis] = useState(true);
 
+  const isLoading = useMemo(() => router.isFallback, [router])
   // useEffect(() => {
   //   const id = router.query.id;
   //   if (id) {
@@ -61,43 +64,53 @@ function Anime({ anime, episodes }: AnimeProps) {
   // const anime = useMemo(() => animes.length ? animes[0] : {} as IAnime, [animes]);
   // const wasAnimeLoaded = useMemo(()=> Object.keys(anime).length > 0 ,[anime]);
 
-  if(router.isFallback){
+  console.log('isLoading: ',)
+  if (isLoading) {
     return <p>loading...</p>
   }
   return (
     <Container>
       <div className='path'>
-        <p><Link href={'/animes'}>Animes</Link> <AiOutlineRight size={14} color={colors.blue} /> {anime?.attributes?.canonicalTitle}</p>
+        <p><Link href={'/animes'}>Animes</Link> {">"} {anime?.attributes?.canonicalTitle}</p>
       </div>
       <div>
         <aside>
           <figure>
-            <Image height={heightAnimeImage} width={widthAnimeImage} src={anime?.attributes?.posterImage?.original} alt={anime?.attributes?.canonicalTitle} />
+            <Image 
+              height={heightAnimeImage} 
+              width={widthAnimeImage} 
+              src={anime?.attributes?.posterImage?.original} 
+              alt={anime?.attributes?.canonicalTitle} 
+              quality={0.1}
+            />
           </figure>
-          <div>
-            <AiFillStar size={32} color={colors.yellow2} /> <p className='score'>{getScoreFormat(anime?.attributes?.averageRating)}</p>/10
-            </div>
-          <div>
-            <b>Lançamento: </b><p>{getFormatDate(anime?.attributes?.startDate)}</p>
-          </div>
-          <div>
-            <b>Finalizado em: </b><p>{anime?.attributes?.endDate ? getFormatDate(anime?.attributes?.endDate) : '?'}</p>
-          </div>
-          <div>
-            <b>Status: </b><p>{anime?.attributes?.status ? anime?.attributes?.status : '?'}</p>
-          </div>
-          <div>
-            <b>Categoria: </b><p>{anime?.attributes?.ageRatingGuide ? anime?.attributes?.ageRatingGuide : '?'}</p>
-          </div>
-          <div>
-            <b>Classificação de idade: </b><p>{anime?.attributes?.ageRating ? anime?.attributes?.ageRating : '?'}</p>
-          </div>
-          <div>
-            <b>Duração: </b><p>{anime?.attributes?.episodeLength ? anime?.attributes?.episodeLength : '?'} mim</p>
-          </div>
-          <div>
-            <b>Tipo: </b><p>{anime?.attributes?.subtype ? anime?.attributes?.subtype : '?'}</p>
-          </div>
+          <ul>
+            <li>
+              <AiFillStar size={32} color={colors.yellow2} /> <p className='score'>{getScoreFormat(anime?.attributes?.averageRating)}</p>/10
+            </li>
+            <li>
+              <b>Lançamento: </b><p>{getFormatDate(anime?.attributes?.startDate)}</p>
+            </li>
+            <li>
+              <b>Finalizado em: </b><p>{anime?.attributes?.endDate ? getFormatDate(anime?.attributes?.endDate) : '?'}</p>
+            </li>
+            <li>
+              <b>Status: </b><p>{anime?.attributes?.status ? anime?.attributes?.status : '?'}</p>
+            </li>
+            <li>
+              <b>Categoria: </b><p>{anime?.attributes?.ageRatingGuide ? anime?.attributes?.ageRatingGuide : '?'}</p>
+            </li>
+            <li>
+              <b>Classificação de idade: </b><p>{anime?.attributes?.ageRating ? anime?.attributes?.ageRating : '?'}</p>
+            </li>
+            <li>
+              <b>Duração: </b><p>{anime?.attributes?.episodeLength ? anime?.attributes?.episodeLength : '?'} mim</p>
+            </li>
+            <li>
+              <b>Tipo: </b><p>{anime?.attributes?.subtype ? anime?.attributes?.subtype : '?'}</p>
+            </li>
+          </ul>
+
         </aside>
         <section>
           <div className='canonicalTitle' ><h3>{anime?.attributes?.canonicalTitle}</h3></div>
@@ -237,7 +250,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
     'include': 'characters.character',
     'fields[characters]': onlySomeCharacatersFields
   });
-  const responseEpisodesPromise  = getEpisodesFromApi(id as string, {});
+  const responseEpisodesPromise = getEpisodesFromApi(id as string, {});
   const [responsePopularityRankAnimes, responseEpisodes] = await Promise.all([
     responsePopularityRankAnimesPromise,
     responseEpisodesPromise

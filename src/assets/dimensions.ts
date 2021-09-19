@@ -8,7 +8,12 @@
 /**
  * unidades em px
  */
-export const breakpoints = {
+ export const breakpoints = {
+    /**
+     * Small: 0
+     */
+    
+    xs: 0,
     /**
      * Small: 576px
      */

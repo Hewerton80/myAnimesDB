@@ -12,6 +12,5 @@ const colors = {
     red: '#E34A2E',
     brow: '#9B8B6B',
     black: '#323232'
-
 };
 export default colors;

@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import GlobalContainer from '../../components/tanpletes/GlobalContainer';
-import AnimeCard from '../../components/ui/AnimeCard';
-import { Pagination } from '../../components/ui/Pagination';
+import GlobalContainer from '../../components/layouts/GlobalContainer';
+import AnimeCard from '../../components/general/AnimeCard';
+import { Pagination } from '../../components/general/Pagination';
 import useAnime, { EAnimesFields, IQueryParamsAnime, onlySomeAnimesFields } from '../../hooks/useAnime';
 import { Container } from './styles';
 

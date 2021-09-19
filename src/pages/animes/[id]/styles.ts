@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import { ScrollBarCss } from '../../../components/css/ScrollBar';
+import { breakpoints } from '../../../assets/dimensions';
+import { ScrollBarCss } from '../../../components/functions/ScrollBar';
 
 export const widthAnimeImage = 225;
 export const heightAnimeImage = 315.5;
 
 export const Container = styled.div`
     overflow-x: hidden;
-    /* width: 1024px; */
     max-width: 100%;
     & .path {
         display: flex;
@@ -18,39 +18,61 @@ export const Container = styled.div`
             font-weight: bold;
             font-size: 0.85rem; //14px
             color: ${colors.blue};
+            margin-right: auto;
         }
     }
     & > div{
         display: flex;
+        flex-direction: column;
+        @media (min-width: ${breakpoints.md}px) {
+            flex-direction: unset;
+        }
     }
 
     aside {
         display: flex;
-        flex-direction: column;
-        margin-right: 16px;
-        figure {
-            width: ${widthAnimeImage}px;
-            height: ${heightAnimeImage}px;
+        margin-bottom: 16px;
+        @media (min-width: ${breakpoints.md}px) {
+            margin-right: 16px;
+            flex-direction: column;
         }
-        img {
-            max-width: ${widthAnimeImage}px;
-            max-height: ${heightAnimeImage}px;
+        figure, img {
+            width: ${widthAnimeImage * 0.75}px;
+            height: ${heightAnimeImage * 0.75}px;
+            margin-right: 16px;
+            @media (min-width: ${breakpoints.md}px) {
+                margin-right: 0;
+                width: ${widthAnimeImage}px;
+                height: ${heightAnimeImage}px;
+            }
         }
-        & > div{
+
+        & > ul{
             display: flex;
-            align-items: center;
-            margin-top: 8px;
-            b, p {
-                color: ${colors.black};
-                font-size: 0.8125rem; //13px
-            }
-            b{
-                margin-right: 2px;
-            }
-            .score{
-                font-size: 1.5rem; //24px
-                font-weight: bold;
-                color: ${colors.blue};
+            flex-direction: column;
+            li {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                margin-top: 8px;
+                b, p {
+                    color: ${colors.black};
+                    font-size: 0.8125rem; //13px
+                }
+                b{
+                    margin-right: 2px;
+                }
+                .score{
+                    font-size: 1.5rem; //24px
+                    font-weight: bold;
+                    color: ${colors.blue};
+                }
+                &:first-child {
+                    margin-top: 0px;
+                    @media (min-width: ${breakpoints.md}px) {
+                        margin-top: 8px;
+                    }
+                }
             }
         }
     }
@@ -61,7 +83,6 @@ export const Container = styled.div`
         flex-direction: column;
         width: 100%;
         overflow: auto;
-
     }
     
     .canonicalTitle {

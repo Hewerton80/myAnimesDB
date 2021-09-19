@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../assets/colors';
-import { ScrollBarCss } from '../../components/css/ScrollBar';
+import { ScrollBarCss } from '../../components/functions/ScrollBar';
 
 export const Container = styled.div`
 

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import { LineClamp } from '../../css/LineClamp';
+import { LineClamp } from '../../functions/LineClamp';
 export const widthImageAnimeList = 50;
 export const heightImageAnimeList = 70.9;
 

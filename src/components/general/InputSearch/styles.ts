@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import { widthStyleContainer } from '../../tanpletes/GlobalContainer/styles';
+import { widthStyleContainer } from '../../layouts/GlobalContainer/styles';
 
 export const Container = styled.div`
         ${widthStyleContainer}
@@ -12,8 +12,7 @@ export const Container = styled.div`
         transition: 0.5s ease-in;
         box-shadow: 2px 0px 10px rgb(0 0 0 / 20%);
         background: ${colors.primary};
-        
-        & > div:nth-child(1){
+        .input-wrapper {
             
             display: flex;
             align-items: center;
@@ -28,7 +27,7 @@ export const Container = styled.div`
                 /* height: 100px; */
             }
         }
-        & > div:nth-child(2){
+        .list-wrapper {
             background: ${colors.primary};
             width: 100%;
             /* box-shadow: 2px 0px 10px rgb(0 0 0 / 20%); */

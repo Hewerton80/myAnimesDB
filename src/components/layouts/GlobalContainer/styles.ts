@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import colors from '../../../assets/colors';
+import { breakpoints } from '../../../assets/dimensions';
 
 export const widthStyleContainer = css`
     width: 1290px;
@@ -10,38 +11,36 @@ export const widthStyleContainer = css`
 
 export const Container = styled.div`
     overflow: hidden;
-    & > header{
+    & > header { 
         background: ${colors.black};
         height: 100px;
         margin-bottom: 16px;
         position: relative;
-        & > img{
-            position: absolute;
-            filter: opacity(.3);
-        }
+        background-image: url('/images/banner.jpg');
+        background-size: cover;
     }
 
-    .hedaerContainer{
+    .hedaerContainer {
         ${widthStyleContainer}
         display: flex;
         justify-content: space-between;
         height: 100%;
         position: relative;
+        filter: none;
     }
-    nav.nav {
-        /* position: absolute; */
+    nav {
         height: 100%;
         width: 100%;
         display: flex;
         justify-content: flex-end;
     }
-    ul.itens {
+    .itens {
         height: 100%;
         display: flex;
         align-items: flex-end;
         padding-bottom: 8px;
     }
-    li.item {
+    .item {
         &.active{
             border-bottom: solid 2px ${colors.primary};
         }
@@ -68,10 +67,30 @@ export const Container = styled.div`
         ${widthStyleContainer}
         overflow: hidden;
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-rows: auto auto;
         gap: 16px;
-        & > .sections{
-            width: 250px;
+        @media (min-width: ${breakpoints.md}px) {
+            grid-template-columns: auto auto;
+            grid-template-rows: unset;
         }
+        & > .content {
+            overflow-x: hidden;
+            display: flex;
+            flex: 1;
+        }
+        & > .sections {
+            display: grid;
+            grid-template-columns: 1fr;
+            column-gap: 16px;
+            @media (min-width: ${breakpoints.sm}px) {
+                grid-template-columns: 1fr 1fr;
+            }
+            @media (min-width: ${breakpoints.md}px) {
+                display: unset;
+                width: 250px;
+                grid-template-columns: 1fr;
+            }
+        }
+
     }
 `;

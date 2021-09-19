@@ -1,12 +1,9 @@
 import moment from 'moment';
-import { arrayMonths } from '../config/vars';
+import 'moment/locale/pt-br';
 
 export const getFormatDate = (date: string | string) => {
     const dateMoment = moment(date);
-    const month = dateMoment.get('months');
-    const dayOfMont = dateMoment.get('date');
-    const year = dateMoment.get('years');
-    return `${dayOfMont} ${arrayMonths[month]}, ${year}`;
+    return dateMoment.format('DD MMM, YYYY');
 }
 
 export const getScoreFormat = (score: string | number) => {

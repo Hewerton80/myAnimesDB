@@ -4,11 +4,11 @@ import useAnime, { onlySomeAnimesFields } from '../../../hooks/useAnime';
 import { Container } from './styles';
 import IconButton from '@material-ui/core/IconButton';
 import colors from '../../../assets/colors';
-import AnimesList from '../../ui/AnimesList';
+import AnimesList from '../AnimesList';
 import { useDebouncedCallback } from 'use-debounce';
 import { SearchContex } from '../../../contexts/SearchContex';
-import Load from '../Load';
 import { useRouter } from 'next/router';
+import Spinner from '../Spinner';
 
 
 function InputSearch() {
@@ -18,7 +18,6 @@ function InputSearch() {
     const { getAnimes, animes: animesFounded, isLoadingAnimes } = useAnime();
     const { showSearch, handleShowSearch } = useContext(SearchContex);
 
-    const [isLoading, setIsLoading] = useState(false);
     const [animeText, setAnimeText] = useState('');
 
     const inputRef = useRef<HTMLInputElement>();
@@ -50,7 +49,6 @@ function InputSearch() {
             "page[limit]": 20,
             "fields[anime]": onlySomeAnimesFields
         });
-        setIsLoading(false);
     }, 1000);
 
     return (
@@ -58,16 +56,14 @@ function InputSearch() {
             className={`${!showSearch ? 'd-none' : ''}`}
             ref={containerRef}
         >
-            <div>
+            <div className='input-wrapper'>
                 <input
                     type="text"
                     placeholder='Pesquisar anime'
-                    // onBlur={() => handleShowSearch(false)}
                     ref={inputRef}
                     onChange={(e) => {
                         setAnimeText(e.target.value);
                         handleChangeInput();
-                        setIsLoading(true);
                     }}
                 />
                 <IconButton
@@ -76,10 +72,10 @@ function InputSearch() {
                     <AiOutlineClose size={24} color={colors.black} />
                 </IconButton>
             </div>
-            {isLoadingAnimes || isLoading ?
-                <Load />
+            {isLoadingAnimes || handleChangeInput.isPending()?
+                <Spinner />
                 :
-                <div>
+                <div className='list-wrapper'>
                     <ul>
                         {
                             animesFounded.map((anime, i) => (

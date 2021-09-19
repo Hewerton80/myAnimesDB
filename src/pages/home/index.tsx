@@ -2,7 +2,7 @@ import { GetStaticProps } from 'next';
 import { Container } from './styles';
 import Head from 'next/head';
 import { EAnimesFields, getAnimesFromApi, onlySomeAnimesFields } from '../../hooks/useAnime';
-import AnimeCard from '../../components/ui/AnimeCard';
+import AnimeCard from '../../components/general/AnimeCard';
 import Link from 'next/link';
 import moment from 'moment';
 import { IAnime } from '../../models/anime';

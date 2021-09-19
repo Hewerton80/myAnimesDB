@@ -2,13 +2,13 @@ import { ReactNode, useContext } from 'react';
 import Link from 'next/link'
 import { Container } from './styles';
 import { EAnimesFields } from '../../../hooks/useAnime';
-import AnimesSection from '../../ui/AnimesSection';
+import AnimesSection from '../../general/AnimesSection';
 import { useRouter } from 'next/router';
 import { AiOutlineSearch } from 'react-icons/ai';
 import IconButton from '@material-ui/core/IconButton';
 import colors from '../../../assets/colors';
 import { SearchContex } from '../../../contexts/SearchContex';
-import InputSearch from '../../ui/InputSearch';
+import InputSearch from '../../general/InputSearch';
 interface GlobalContainerProps {
   children: ReactNode;
 }
@@ -19,11 +19,13 @@ function GlobalContainer({ children }: GlobalContainerProps) {
 
   const { handleShowSearch } = useContext(SearchContex);
 
+  if (router.pathname === '/_error') {
+    return <>{children}</>
+  }
   return (
     <Container>
-      <InputSearch/>
+      <InputSearch />
       <header>
-        <img src="/images/banner.jpg" alt="banner" />
         <div className='hedaerContainer'>
           <nav className='nav'>
             <ul className='itens'>
@@ -46,7 +48,9 @@ function GlobalContainer({ children }: GlobalContainerProps) {
         </div>
       </header>
       <main>
-        {children}
+        <div className='content'>
+          {children}
+        </div>
         <div className='sections'>
           <AnimesSection
             title='Top Animes Favoritos'

@@ -1,35 +1,47 @@
 import styled from 'styled-components';
 import colors from '../../../assets/colors';
-import { LineClamp } from '../../css/LineClamp';
+import { breakpoints } from '../../../assets/dimensions';
+import { LineClamp } from '../../functions/LineClamp';
 
 export const widthImage = 114;
 export const heightImage = 161.36;
 
 export const Container = styled.div`
     margin: 0 10px 10px 0;
-    width: ${widthImage}px;
+    width: ${widthImage * 0.875}px;
     position: relative;
-    & > div:nth-child(1) {
-        height: ${heightImage}px;
+    @media (min-width: ${breakpoints.sm}px) {
         width: ${widthImage}px;
+    }
+    & > div:nth-child(1) {
+        height: ${heightImage * 0.875}px;
+        width: ${widthImage * 0.875}px;
         overflow: hidden;
-        a{
+        @media (min-width: ${breakpoints.sm}px) {
             height: ${heightImage}px;
             width: ${widthImage}px;
-            overflow: hidden;
+        }
+        a{
+            display: flex;
+            height: 100%;
+            width: 100%;
         }
         img {
-            height: ${heightImage}px;
-            width: ${widthImage}px;
+            height: ${heightImage * 0.875}px;
+            width: ${widthImage * 0.875}px;
             transition: .3s;
             cursor: pointer;
             position: relative;
+            @media (min-width: ${breakpoints.sm}px) {
+                height: ${heightImage}px;
+                width: ${widthImage}px;
+            }
             &:hover{
                 transform: scale(1.1);
             }
         }
     }
-    & > p{
+    & > p {
         ${LineClamp(1)}
         margin-top: 2px;
         font-size: 0.85rem; //14px

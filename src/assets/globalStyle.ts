@@ -1,15 +1,22 @@
 import { createGlobalStyle } from 'styled-components';
-import { ScrollBarCss } from '../components/css/ScrollBar';
+import { ScrollBarCss } from '../components/functions/ScrollBar';
 import colors from './colors';
+import { breakpoints } from './dimensions';
 
 export const GlobalStyle = createGlobalStyle`
 
     html{
         ${ScrollBarCss}
-        font-size: 1rem; //16px
     }
 
-    @media (max-width: 1080px) {
+    @media (min-width: ${breakpoints.xs}px) {
+        html {
+            font-size: 87.5%;
+            /* 16 X 0.875 = 14px */
+        }
+    }
+
+    @media (min-width: ${breakpoints.md}px) {
         /* font-size = 100% equivalente à 16px */
         html {
             
@@ -19,11 +26,13 @@ export const GlobalStyle = createGlobalStyle`
 
     }
 
-    @media (max-width: 720px) {
+    @media (min-width: ${breakpoints.lg}px) {
+        /* font-size = 100% equivalente à 16px */
         html {
-            font-size: 87.5%;
-            /* 16 X 0.875 = 14px */
+            font-size: 100%;
+            /* 16 X 0.9375 = 15px */
         }
+
     }
 
     * {
@@ -31,6 +40,7 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
     }
+    
     body {
         background: ${colors.primary};
         overflow-x: hidden;

@@ -39,7 +39,7 @@ function AnimeCard({ anime, isLoagin }: AnimeCardProps) {
         </>
         :
           <>
-            <p>{anime.attributes.canonicalTitle}</p>
+            <p title={anime.attributes.canonicalTitle}>{anime.attributes.canonicalTitle}</p>
             <div className='anime-footer'>
               <span>#{anime.attributes.ratingRank || '?'}</span>
               <span><AiFillStar size={16} color={colors.yellow2} /> {getScoreFormat(anime.attributes.averageRating) || '?'}</span>
