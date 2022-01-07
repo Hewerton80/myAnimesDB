@@ -9,9 +9,10 @@ import { IAnime } from '../../models/anime';
 interface HomeProps {
   popularityRankAnimes: IAnime[],
   mostRecentAnimes: IAnime[]
+  date: string;
 }
 
-function Home({ popularityRankAnimes, mostRecentAnimes }: HomeProps) {
+function Home({ popularityRankAnimes, mostRecentAnimes, date }: HomeProps) {
   // const handleDragStart = useCallback((e: MouseEvent<HTMLDivElement, globalThis.MouseEvent>, i: number) => {
   //   console.log(e)
   //   const pos = {
@@ -88,7 +89,9 @@ function Home({ popularityRankAnimes, mostRecentAnimes }: HomeProps) {
               />
             ))}
           </div>
+          <div>Última atualização: {date}</div>
         </div>
+       
       </Container>
     </>
   );
@@ -116,13 +119,19 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const popularityRankAnimes: IAnime[] = responsePopularityRankAnimes.data.data;
   const mostRecentAnimes: IAnime[] = responseMostRecentAnimes.data.data;
-
+  const now = new Date()
+  const day = String(now.getDate()).padStart(2,'0')
+  const month = String(now.getMonth() + 1).padStart(2,'0')
+  const year = now.getFullYear()
+  const hours = String(now.getHours()).padStart(2,'0')
+  const minuts = String(now.getMinutes()).padStart(2,'0')
   return {
     props: {
       popularityRankAnimes,
-      mostRecentAnimes
+      mostRecentAnimes,
+      date: `${day}/${month}/${year} ${hours}:${minuts}`
     }, // will be passed to the page component as props
-    revalidate: 60 * 60 * 8
+    revalidate: 60 * 60 * 4
   }
 }
 
